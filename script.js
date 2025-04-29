@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const emailInput = document.getElementById('email');
   const cityInput = document.getElementById('city');
   const zipInput = document.getElementById('zip');
+
+  updateVariables();
+
   emailInput.addEventListener('input', updateVariables);
   cityInput.addEventListener('input', updateVariables);
   zipInput.addEventListener('input', updateVariables);
