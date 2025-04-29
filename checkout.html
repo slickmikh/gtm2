@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liverpool Fan Shop - Checkout</title>
     <link rel="stylesheet" href="styles.css">
-   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <!-- Google Tag Manager Should Go Here -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PGL6T7JM');</script>
-<!-- End Google Tag Manager -->
 </head>
+
 <body>
-   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGL6T7JM"
+    <!-- Google Tag Manager (noscript) should go here-->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGL6T7JM"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
     <header>
         <nav>
             <ul>
@@ -27,24 +26,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </ul>
         </nav>
     </header>
+
     <main>
         <h1>Checkout</h1>
-        <form id="checkout-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" value="John Doe"><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" value="johndoe@example.com"><br><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" value="123 Main St"><br><br>
-            <label for="city">City:</label>
-            <input type="text" id="city" value="Anytown"><br><br>
-            <label for="state">State:</label>
-            <input type="text" id="state" value="CA"><br><br>
-            <label for="zip">Zip:</label>
-            <input type="text" id="zip" value="12345"><br><br>
-            <button id="purchase-btn" type="button" onclick="completePurchase()">Complete Purchase</button>
-        </form>
+
+        <div class="checkout-container">
+            <div class="form-section">
+                <form id="checkout-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" value="John Doe">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="johndoe@example.com">
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" value="123 Main St">
+
+                    <label for="city">City:</label>
+                    <input type="text" id="city" value="Anytown">
+
+                    <label for="state">State:</label>
+                    <input type="text" id="state" value="CA">
+
+                    <label for="zip">Zip:</label>
+                    <input type="text" id="zip" value="12345">
+
+                    <button id="purchase-btn" type="button" onclick="completePurchase()">Complete Purchase</button>
+                </form>
+            </div>
+
+            <div class="cart-summary-section">
+                <h2>Order Summary:</h2>
+                <table id="cart-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-summary-body"></tbody>
+                </table>
+                <p>Total: $<span id="cart-total">0</span></p>
+            </div>
+        </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -47,6 +47,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    margin-top:10px;
 }
 
 button:hover {
@@ -157,4 +158,44 @@ button:hover {
 .notification span {
     font-size: 16px;
     font-weight: bold;
+}
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-section {
+    width: 60%;
+}
+
+.cart-summary-section {
+    width: 30%;
+}
+
+#cart-summary-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+#cart-summary-table th, #cart-summary-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+#cart-summary-table th {
+    background-color: #f0f0f0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }

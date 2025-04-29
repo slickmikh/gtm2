@@ -68,6 +68,10 @@ function displayCartTable() {
         row.appendChild(totalCell);
         cartTableBody.appendChild(row);
     }
+
+    // Calculate and display the cart total
+    const total = getCartTotal();
+    document.getElementById('cart-total').textContent = total.toFixed(2);
 }
 
 // Display the cart table when the cart page loads
@@ -109,4 +113,45 @@ function showNotification(message) {
     setTimeout(() => {
         notification.remove();
     }, 3000);
+}
+
+// Function to get the total value of the cart
+function getCartTotal() {
+    let total = 0;
+    for (const name in cart) {
+        total += cart[name].price * cart[name].quantity;
+    }
+    return total;
+}
+
+// Function to display the cart summary
+function displayCartSummary() {
+    const cartSummaryBody = document.getElementById('cart-summary-body');
+    cartSummaryBody.innerHTML = '';
+    for (const name in cart) {
+        const row = document.createElement('tr');
+        const productCell = document.createElement('td');
+        productCell.textContent = name;
+        productCell.style.width = '40%';
+        row.appendChild(productCell);
+        const quantityCell = document.createElement('td');
+        quantityCell.textContent = cart[name].quantity;
+        quantityCell.style.width = '20%';
+        quantityCell.style.textAlign = 'center';
+        row.appendChild(quantityCell);
+        const totalCell = document.createElement('td');
+        totalCell.textContent = `$${cart[name].price * cart[name].quantity}`;
+        totalCell.style.width = '40%';
+        totalCell.style.textAlign = 'right';
+        row.appendChild(totalCell);
+        cartSummaryBody.appendChild(row);
+    }
+    // Calculate and display the cart total
+    const total = getCartTotal();
+    document.getElementById('cart-total').textContent = total.toFixed(2);
+}
+// Display the cart summary when the checkout page loads
+if (document.getElementById('cart-summary-table')) {
+    loadCartFromLocalStorage();
+    displayCartSummary();
 }
