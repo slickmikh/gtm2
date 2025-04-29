@@ -1,3 +1,25 @@
+// Create global variables
+let userEmail = '';
+let userCity = '';
+let userZip = '';
+// Function to update global variables
+function updateVariables() {
+  userEmail = document.getElementById('email').value;
+  userCity = document.getElementById('city').value;
+  userZip = document.getElementById('zip').value;
+  // You can uncomment this line to see the updated values in the console
+  // console.log(userEmail, userCity, userZip);
+}
+// Add event listeners to input boxes
+document.addEventListener('DOMContentLoaded', function() {
+  const emailInput = document.getElementById('email');
+  const cityInput = document.getElementById('city');
+  const zipInput = document.getElementById('zip');
+  emailInput.addEventListener('input', updateVariables);
+  cityInput.addEventListener('input', updateVariables);
+  zipInput.addEventListener('input', updateVariables);
+});
+
 // Get the cart count element
 const cartCountElement = document.getElementById('cart-count');
 
