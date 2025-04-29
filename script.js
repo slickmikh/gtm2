@@ -4,18 +4,25 @@ let userCity = '';
 let userZip = '';
 // Function to update global variables
 function updateVariables() {
-  userEmail = document.getElementById('email').value;
-  userCity = document.getElementById('city').value;
-  userZip = document.getElementById('zip').value;
-  // You can uncomment this line to see the updated values in the console
-  // console.log(userEmail, userCity, userZip);
+  const emailInput = document.getElementById('email');
+  const cityInput = document.getElementById('city');
+  const zipInput = document.getElementById('zip');
+  if (emailInput) {
+    userEmail = emailInput.value;
+  }
+  if (cityInput) {
+    userCity = cityInput.value;
+  }
+  if (zipInput) {
+    userZip = zipInput.value;
+  }
 }
 // Add event listeners to input boxes
 document.addEventListener('DOMContentLoaded', function() {
   const emailInput = document.getElementById('email');
   const cityInput = document.getElementById('city');
   const zipInput = document.getElementById('zip');
-
+  
   updateVariables();
 
   emailInput.addEventListener('input', updateVariables);
