@@ -54,14 +54,11 @@ button:hover {
     background-color: #3e8e41;
 }
 
-.products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
 .product-list {
   display: flex;
   justify-content: center;
+  width: 75%; /* Added */
+  margin: 0 auto; /* Added */
 }
 .product {
   margin: 20px;
