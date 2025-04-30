@@ -59,27 +59,34 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
 }
-
+.product-list {
+  display: flex;
+  justify-content: center;
+}
 .product {
-    margin: 20px;
-    width: calc(33.33% - 20px);
+  margin: 20px;
+  width: calc(33.33% - 20px);
+  display: flex;
+  flex-direction: column;
 }
-
+.product .content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .product img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
 }
-
-.product h2 {
-    font-size: 18px;
-    margin-top: 10px;
+.product h3, .product p {
+  text-align: center;
 }
-
-.product p {
-    font-size: 14px;
-    margin-bottom: 10px;
+.product button {
+  margin-top: auto;
 }
 
 #cart-table {
