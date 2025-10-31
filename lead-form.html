@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meta Pixel Lead Form Example</title>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1365326834804623');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1365326834804623&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+  <h1>Lead Form Example</h1>
+  <form id="leadForm">
+    <label>
+      First Name: <input type="text" id="first_name" name="first_name" required>
+    </label><br>
+    <label>
+      Last Name: <input type="text" id="last_name" name="last_name" required>
+    </label><br>
+    <label>
+      Email: <input type="email" id="email" name="email" required>
+    </label><br>
+    <label>
+      Phone: <input type="tel" id="phone" name="phone" required>
+    </label><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('leadForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Collect form data
+      var firstName = document.getElementById('first_name').value;
+      var lastName = document.getElementById('last_name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+
+      // Trigger the Lead event with user data
+      fbq('track', 'Lead', {
+        fn: firstName,
+        ln: lastName,
+        em: email,
+        ph: phone
+      });
+
+      alert('Lead event sent!');
+      // Optionally, reset the form
+      // e.target.reset();
+    });
+  </script>
+</body>
+</html>
