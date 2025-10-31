@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Meta Pixel Lead Form Example</title>
+  <title>Lead Form Demo | Meta Pixel Advanced Matching</title>
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -13,6 +13,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+    // Initial pixel init (no user data yet)
     fbq('init', '1365326834804623');
     fbq('track', 'PageView');
   </script>
@@ -21,46 +22,138 @@
          src="https://www.facebook.com/tr?id=1365326834804623&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: linear-gradient(120deg, #f0f4f8 0%, #e0e7ef 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 400px;
+      width: 100%;
+      margin: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #2d3a4b;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #3a4a5d;
+      font-weight: 500;
+    }
+    form input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #cfd8dc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f7fafc;
+      transition: border 0.2s;
+    }
+    form input:focus {
+      border-color: #4f8cff;
+      outline: none;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(90deg, #4f8cff 0%, #2d6cdf 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #2d6cdf 0%, #4f8cff 100%);
+    }
+    .success-message {
+      background: #e6f9e6;
+      color: #217a36;
+      border: 1px solid #b2e5b2;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1.05rem;
+      display: none;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Lead Form Example</h1>
-  <form id="leadForm">
-    <label>
-      First Name: <input type="text" id="first_name" name="first_name" required>
-    </label><br>
-    <label>
-      Last Name: <input type="text" id="last_name" name="last_name" required>
-    </label><br>
-    <label>
-      Email: <input type="email" id="email" name="email" required>
-    </label><br>
-    <label>
-      Phone: <input type="tel" id="phone" name="phone" required>
-    </label><br>
-    <button type="submit">Submit</button>
-  </form>
+  <div class="container">
+    <h1>Sign Up for Updates</h1>
+    <form id="leadForm" autocomplete="off">
+      <label for="first_name">First Name</label>
+      <input type="text" id="first_name" name="first_name" required>
 
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required pattern="[\d\s\-\+\(\)]*">
+
+      <button type="submit">Submit</button>
+    </form>
+    <div class="success-message" id="successMsg">
+      Thank you! Your information has been submitted.<br>
+      (A Meta Pixel <b>Lead</b> event was sent.)
+    </div>
+  </div>
   <script>
     document.getElementById('leadForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Collect form data
-      var firstName = document.getElementById('first_name').value;
-      var lastName = document.getElementById('last_name').value;
-      var email = document.getElementById('email').value;
-      var phone = document.getElementById('phone').value;
+      // Collect and trim form data
+      var firstName = document.getElementById('first_name').value.trim();
+      var lastName = document.getElementById('last_name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
 
-      // Trigger the Lead event with user data
-      fbq('track', 'Lead', {
-        fn: firstName,
-        ln: lastName,
+      // Re-initialize the pixel with user data for advanced matching
+      fbq('init', '1365326834804623', {
         em: email,
-        ph: phone
+        ph: phone,
+        fn: firstName,
+        ln: lastName
       });
 
-      alert('Lead event sent!');
-      // Optionally, reset the form
-      // e.target.reset();
+      // Fire the Lead event (no need to send PII here, it's already set in init)
+      fbq('track', 'Lead');
+
+      // Show a success message
+      document.getElementById('leadForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
     });
   </script>
 </body>
