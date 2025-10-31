@@ -114,31 +114,6 @@
       (A Meta Pixel <b>Lead</b> event was sent.)
     </div>
   </div>
-  <script>
-    document.getElementById('leadForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Collect and trim form data
-      var firstName = document.getElementById('first_name').value.trim();
-      var lastName = document.getElementById('last_name').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var phone = document.getElementById('phone').value.trim();
-
-      // Re-initialize the pixel with user data for advanced matching
-      fbq('init', '1365326834804623', {
-        em: email,
-        ph: phone,
-        fn: firstName,
-        ln: lastName
-      });
-
-      // Fire the Lead event (no need to send PII here, it's already set in init)
-      fbq('track', 'Lead');
-
-      // Show a success message
-      document.getElementById('leadForm').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    });
-  </script>
+  
 </body>
 </html>
