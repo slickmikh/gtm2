@@ -167,6 +167,13 @@ function completePurchase() {
   updateCartCount();
 
   // Redirect to the purchase confirmation page
+
+  localStorage.setItem('userEmail', userEmail);
+localStorage.setItem('userCity', userCity);
+localStorage.setItem('userZip', userZip);
+localStorage.setItem('cartTotal', getCartTotal());
+localStorage.setItem('eventID', generateEventID());
+
   window.location.href = 'purchase-confirmation.html';
 }
 
@@ -198,35 +205,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (purchaseBtn) purchaseBtn.addEventListener('click', completePurchase);
 });
 
-// =====================
-// Confirmation Page: Push Data to Data Layer for GTM
-// =====================
-
-if (window.location.pathname.includes('purchase-confirmation.html')) {
-  window.addEventListener('load', function() {
-    // Retrieve purchase/user data from localStorage
-    var userEmail = localStorage.getItem('userEmail') || '';
-    var userCity = localStorage.getItem('userCity') || '';
-    var userZip = localStorage.getItem('userZip') || '';
-    var cartTotal = localStorage.getItem('cartTotal') || '';
-    var eventID = localStorage.getItem('eventID') || '';
-
-    // Push purchase data to the Data Layer for GTM
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'purchase',
-      userEmail: userEmail,
-      userCity: userCity,
-      userZip: userZip,
-      cartTotal: cartTotal,
-      eventID: eventID
-    });
-
-    // Optionally clear localStorage to prevent duplicate events
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userCity');
-    localStorage.removeItem('userZip');
-    localStorage.removeItem('cartTotal');
-    localStorage.removeItem('eventID');
+window.addEventListener('load', function() {
+  var userEmail = localStorage.getItem('userEmail') || '';
+  var userCity = localStorage.getItem('userCity') || '';
+  var userZip = localStorage.getItem('userZip') || '';
+  var cartTotal = localStorage.getItem('cartTotal') || '';
+  var eventID = localStorage.getItem('eventID') || '';
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'purchase',
+    userEmail: userEmail,
+    userCity: userCity,
+    userZip: userZip,
+    cartTotal: cartTotal,
+    eventID: eventID
   });
-}
+  // Optionally clear localStorage
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userCity');
+  localStorage.removeItem('userZip');
+  localStorage.removeItem('cartTotal');
+  localStorage.removeItem('eventID');
+});
