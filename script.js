@@ -10,6 +10,11 @@ let cart = {};
 // Utility Functions
 // =====================
 
+// Generate a unique event ID (for deduplication)
+function generateEventID() {
+  return 'evt_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+}
+
 // Update user variables and persist to localStorage
 function updateUserVariables() {
   const emailInput = document.getElementById('email');
@@ -149,9 +154,19 @@ function initiateCheckout() {
 
 // Complete purchase
 function completePurchase() {
+  // Generate and store eventID for deduplication
+  const eventID = generateEventID();
+  localStorage.setItem('eventID', eventID);
+
+  // Save latest user/cart data
+  updateUserVariables();
+
+  // Clear the cart
   cart = {};
   saveCartToLocalStorage();
   updateCartCount();
+
+  // Redirect to the purchase confirmation page
   window.location.href = 'purchase-confirmation.html';
 }
 
@@ -182,3 +197,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const purchaseBtn = document.getElementById('purchase-btn');
   if (purchaseBtn) purchaseBtn.addEventListener('click', completePurchase);
 });
+
+// =====================
+// Confirmation Page: Push Data to Data Layer for GTM
+// =====================
+
+if (window.location.pathname.includes('purchase-confirmation.html')) {
+  window.addEventListener('load', function() {
+    // Retrieve purchase/user data from localStorage
+    var userEmail = localStorage.getItem('userEmail') || '';
+    var userCity = localStorage.getItem('userCity') || '';
+    var userZip = localStorage.getItem('userZip') || '';
+    var cartTotal = localStorage.getItem('cartTotal') || '';
+    var eventID = localStorage.getItem('eventID') || '';
+
+    // Push purchase data to the Data Layer for GTM
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'purchase',
+      userEmail: userEmail,
+      userCity: userCity,
+      userZip: userZip,
+      cartTotal: cartTotal,
+      eventID: eventID
+    });
+
+    // Optionally clear localStorage to prevent duplicate events
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userCity');
+    localStorage.removeItem('userZip');
+    localStorage.removeItem('cartTotal');
+    localStorage.removeItem('eventID');
+  });
+}
